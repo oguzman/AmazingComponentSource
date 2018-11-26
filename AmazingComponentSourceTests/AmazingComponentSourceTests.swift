@@ -11,8 +11,14 @@ import XCTest
 
 class AmazingComponentSourceTests: XCTestCase {
 
+    var vcStar: ViewController!
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc: ViewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        vcStar = vc
+        _ = vcStar.view
     }
 
     override func tearDown() {
@@ -29,6 +35,15 @@ class AmazingComponentSourceTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    func testNonSelected() {
+        XCTAssertFalse(vcStar.isSelected)
+    }
+    
+    func testSelected() {
+        vcStar.btnStar.sendActions(for: .touchUpInside)
+        XCTAssertTrue(vcStar.isSelected)
     }
 
 }
